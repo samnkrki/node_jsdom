@@ -329,6 +329,7 @@ function childFunction2(pageWidget, parentContainer) {
             parentContainer.appendChild(div);
          }
          else if (pageWidget.id && pageWidget.id.indexOf('data-grid') >= 0) {
+            // find datagrid id and its properties from json file, and assign it to appropritate gridSetting here
             let div = document.createElement('div');
             div.classList.add('grid-selector');
             let divChild1 = document.createElement('div');
@@ -398,7 +399,13 @@ function childFunction2(pageWidget, parentContainer) {
             }
 
          } else if (pageWidget.className.indexOf('entity-widget') >= 0) {
+            if (pageWidget.widget.name !== 'Entity') {
+               let div = document.createElement('div');
+               parentContainer.appendChild(div);
+            }
+            if (pageWidget.widget.name === 'Entity' && pageWidget.widget.properties[5].relationship === 'onetomany') {
 
+            }
          } else if (pageWidget.children && pageWidget.children.length === 0) {
             let div = document.createElement('div');
             div.setAttribute("class", pageWidget.className);
@@ -410,37 +417,70 @@ function childFunction2(pageWidget, parentContainer) {
 
          break;
       case 'button':
-
+         let button = document.createElement('button');
+         button.type = "button";
+         button.className = `${pageWidget.className} btn-block`;
+         button.id = pageWidget.id;
+         button.onclick = checkProcess(pageWidget.id);
+         // button.hidden = !checkButtonHidden(pageWidget.id)
          break;
       case 'h1':
          let h1 = document.createElement('h1')
+         h1.id = pageWidget.id;
+         h1.className = pageWidget.className
          h1.innerHTML = pageWidget.innerHtml;
          parentContainer.appendChild(h1)
          break;
       case 'h2':
          let h2 = document.createElement('h2')
+         h2.id = pageWidget.id;
+         h2.className = pageWidget.className
          h2.innerHTML = pageWidget.innerHtml;
          parentContainer.appendChild(h2)
          break;
       case 'h3':
-
+         let h3 = document.createElement('h3')
+         h3.id = pageWidget.id;
+         h3.className = pageWidget.className
+         h3.innerHTML = pageWidget.innerHtml;
+         parentContainer.appendChild(h3)
          break;
       case 'h4':
-
+         let h4 = document.createElement('h4')
+         h4.id = pageWidget.id;
+         h4.className = pageWidget.className
+         h4.innerHTML = pageWidget.innerHtml;
+         parentContainer.appendChild(h4)
          break;
       case 'h5':
-
+         let h5 = document.createElement('h5')
+         h5.id = pageWidget.id;
+         h5.className = pageWidget.className
+         h5.innerHTML = pageWidget.innerHtml;
+         parentContainer.appendChild(h5)
          break;
       case 'h6':
-
+         let h6 = document.createElement('h6')
+         h6.id = pageWidget.id;
+         h6.innerHTML = pageWidget.innerHtml;
+         parentContainer.appendChild(h6)
          break;
       case 'label':
-
+         let label = document.createElement('label')
+         label.id = pageWidget.id;
+         label.innerHTML = pageWidget.innerHtml;
+         parentContainer.appendChild(label)
          break;
       case 'span':
-
+         if (pageWidget.className.indexOf('input-group-addon') < 0) {
+            let span = document.createElement('span');
+            span.id = pageWidget.id
+            span.className = pageWidget.className;
+            span.innerHTML = pageWidget.innerHtml;
+         }
          break;
       default:
+         // test
          parentContainer.appendChild(document.createElement('h3'))
          break;
    }
